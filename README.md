@@ -1,21 +1,21 @@
-# Trabalho: Projeto do Banco de Registradores do RISC-V
+# Trabalho: Projeto e Simulação de uma ULA em VHDL
 
 **Aluno:** Luigi Minardi Ferreira Maia
 **Matrícula:** 17/0017141
 
 ## Relatório
 
-Qual a opção usada para simular a constante zero em XREGS[0]?
+Este trabalho consiste na descrição em [VHDL](https://pt.wikipedia.org/wiki/VHDL) de uma unidade
+lógica aritimética (ULA) de um processador RISC-V e do seu respectivo teste.
+A descrição da ULA pode ser encontrada no arquivo [ulaRV.vhdl](/ulaRV.vhdl) e o respectivo testbench
+pode ser encontrado no arquivo [ulaRV_testbench.vhdl](/ulaRV_testbench.vhdl).
 
-> O banco de registradores é representado em forma de um processo que é acionado toda vez que o clock muda.
-> No caso em que o clock mudou para o valor '1' o sinal de write é '1' o banco de registradores tem seu
-> um de seus registradores alterados, todavia, o registrador de índice 0 sempre é assinalado para o valor '0'.
-> ```vhdl
-> write_process : PROCESS (clk)
->   BEGIN
->     IF (wren = '1' AND clk = '1') THEN
->       regs(conv_integer(rd)) <= data;
->       regs(0) <= 32x"0";
->     END IF;
->   END PROCESS;
->  ```
+Explique em suas palavras a diferença entre as comparações com e
+sem sinal.
+> As comparações com sinal são feitas de modo que o primeiro bit da palavra é considerado como um
+> digito de valor negativo seguindo a regra de complemento a dois. De outro modo, nas comparações
+> sem sinal, todos os bits são considerados como digitos de valor positivo.
+
+### Formas de onda
+
+![Formas de onda](/formasDeOnda.png)

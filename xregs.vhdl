@@ -4,17 +4,17 @@ USE IEEE.numeric_std.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 ENTITY xregs IS
-  GENERIC (WSIZE : NATURAL := 32);
+  GENERIC (WSIZE : natural := 32);
   PORT (
-    clk, wren : IN STD_LOGIC;
-    rs1, rs2, rd : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
-    data : IN STD_LOGIC_VECTOR(WSIZE - 1 DOWNTO 0);
-    ro1, ro2 : OUT STD_LOGIC_VECTOR(WSIZE - 1 DOWNTO 0)
+    clk, wren : IN std_logic;
+    rs1, rs2, rd : IN std_logic_vector(4 DOWNTO 0);
+    data : IN std_logic_vector(WSIZE - 1 DOWNTO 0);
+    ro1, ro2 : OUT std_logic_vector(WSIZE - 1 DOWNTO 0)
   );
 END ENTITY;
 
 ARCHITECTURE arch OF xregs IS
-  TYPE REGS_TYPE IS ARRAY (31 DOWNTO 0) OF STD_LOGIC_VECTOR(WSIZE - 1 DOWNTO 0);
+  TYPE REGS_TYPE IS ARRAY (31 DOWNTO 0) OF std_logic_vector(WSIZE - 1 DOWNTO 0);
   SIGNAL regs : REGS_TYPE;
 BEGIN
   ro1 <= regs(conv_integer(rs1));

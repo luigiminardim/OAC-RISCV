@@ -1,37 +1,37 @@
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
+LIBRARY IEEE;
+USE IEEE.std_logic_1164.ALL;
+USE IEEE.numeric_std.ALL;
 
-entity ulaRV is
-  generic (WSIZE : natural := 32);
-  port (
-    opcode : in std_logic_vector(3 downto 0);
-    a, b : in std_logic_vector(WSIZE - 1 downto 0);
-    z : out std_logic_vector(WSIZE - 1 downto 0)
+ENTITY ulaRV IS
+  GENERIC (WSIZE : natural := 32);
+  PORT (
+    opcode : IN std_logic_vector(3 DOWNTO 0);
+    a, b : IN std_logic_vector(WSIZE - 1 DOWNTO 0);
+    z : OUT std_logic_vector(WSIZE - 1 DOWNTO 0)
   );
-end entity ulaRV;
+END ENTITY ulaRV;
 
-architecture arch of ulaRV is
-begin
+ARCHITECTURE arch OF ulaRV IS
+BEGIN
   z <=
-    std_logic_vector(signed(a) + signed(b)) when opcode = "0000" else
-    std_logic_vector(signed(a) - signed(b)) when opcode = "0001" else
-    std_logic_vector(signed(a) and signed(b)) when opcode = "0010" else
-    std_logic_vector(signed(a) or signed(b)) when opcode = "0011" else
-    std_logic_vector(signed(a) xor signed(b)) when opcode = "0100" else
-    std_logic_vector(signed(a) sll to_integer(signed(b))) when opcode = "0101" else
-    std_logic_vector(signed(a) srl to_integer(signed(b))) when opcode = "0110" else
-    std_logic_vector(signed(a) sra to_integer(signed(b))) when opcode = "0111" else
-    std_logic_vector(resize(unsigned(x"1"), WSIZE)) when opcode = "1000" and signed(a) < signed(b) else
-    std_logic_vector(resize(unsigned(x"0"), WSIZE)) when opcode = "1000" else
-    std_logic_vector(resize(unsigned(x"1"), WSIZE)) when opcode = "1001" and unsigned(a) < unsigned(b) else
-    std_logic_vector(resize(unsigned(x"0"), WSIZE)) when opcode = "1001" else
-    std_logic_vector(resize(unsigned(x"1"), WSIZE)) when opcode = "1010" and signed(a) >= signed(b) else
-    std_logic_vector(resize(unsigned(x"0"), WSIZE)) when opcode = "1010" else
-    std_logic_vector(resize(unsigned(x"1"), WSIZE)) when opcode = "1011" and unsigned(a) >= unsigned(b) else
-    std_logic_vector(resize(unsigned(x"0"), WSIZE)) when opcode = "1011" else
-    std_logic_vector(resize(unsigned(x"1"), WSIZE)) when opcode = "1100" and signed(a) = signed(b) else
-    std_logic_vector(resize(unsigned(x"0"), WSIZE)) when opcode = "1100" else
-    std_logic_vector(resize(unsigned(x"1"), WSIZE)) when opcode = "1101" and signed(a) /= signed(b) else
-    std_logic_vector(resize(unsigned(x"0"), WSIZE)) when opcode = "1101";
-end architecture arch;
+    std_logic_vector(signed(a) + signed(b)) WHEN opcode = "0000" ELSE
+    std_logic_vector(signed(a) - signed(b)) WHEN opcode = "0001" ELSE
+    std_logic_vector(signed(a) AND signed(b)) WHEN opcode = "0010" ELSE
+    std_logic_vector(signed(a) OR signed(b)) WHEN opcode = "0011" ELSE
+    std_logic_vector(signed(a) XOR signed(b)) WHEN opcode = "0100" ELSE
+    std_logic_vector(signed(a) SLL to_integer(signed(b))) WHEN opcode = "0101" ELSE
+    std_logic_vector(signed(a) SRL to_integer(signed(b))) WHEN opcode = "0110" ELSE
+    std_logic_vector(signed(a) SRA to_integer(signed(b))) WHEN opcode = "0111" ELSE
+    std_logic_vector(resize(unsigned(x"1"), WSIZE)) WHEN opcode = "1000" AND signed(a) < signed(b) ELSE
+    std_logic_vector(resize(unsigned(x"0"), WSIZE)) WHEN opcode = "1000" ELSE
+    std_logic_vector(resize(unsigned(x"1"), WSIZE)) WHEN opcode = "1001" AND unsigned(a) < unsigned(b) ELSE
+    std_logic_vector(resize(unsigned(x"0"), WSIZE)) WHEN opcode = "1001" ELSE
+    std_logic_vector(resize(unsigned(x"1"), WSIZE)) WHEN opcode = "1010" AND signed(a) >= signed(b) ELSE
+    std_logic_vector(resize(unsigned(x"0"), WSIZE)) WHEN opcode = "1010" ELSE
+    std_logic_vector(resize(unsigned(x"1"), WSIZE)) WHEN opcode = "1011" AND unsigned(a) >= unsigned(b) ELSE
+    std_logic_vector(resize(unsigned(x"0"), WSIZE)) WHEN opcode = "1011" ELSE
+    std_logic_vector(resize(unsigned(x"1"), WSIZE)) WHEN opcode = "1100" AND signed(a) = signed(b) ELSE
+    std_logic_vector(resize(unsigned(x"0"), WSIZE)) WHEN opcode = "1100" ELSE
+    std_logic_vector(resize(unsigned(x"1"), WSIZE)) WHEN opcode = "1101" AND signed(a) /= signed(b) ELSE
+    std_logic_vector(resize(unsigned(x"0"), WSIZE)) WHEN opcode = "1101";
+END ARCHITECTURE arch;

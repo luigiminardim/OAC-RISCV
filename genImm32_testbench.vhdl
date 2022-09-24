@@ -1,66 +1,66 @@
-library IEEE;
-use IEEE.std_logic_1164.all;
-use ieee.numeric_std.all;
-use std.textio.all; -- Imports the standard textio package.
+LIBRARY IEEE;
+USE IEEE.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+USE std.textio.ALL; -- Imports the standard textio package.
 
-entity genImm32Testbench is
-end genImm32Testbench;
+ENTITY genImm32Testbench IS
+END genImm32Testbench;
 
-architecture genImm32Testbench of genImm32Testbench is
-  component genImm32 is
-    port (
-      instr : in std_logic_vector(31 downto 0);
-      imm32 : out signed(31 downto 0)
+ARCHITECTURE genImm32Testbench OF genImm32Testbench IS
+  COMPONENT genImm32 IS
+    PORT (
+      instr : IN std_logic_vector(31 DOWNTO 0);
+      imm32 : OUT signed(31 DOWNTO 0)
     );
-  end component;
-  signal instr : std_logic_vector(31 downto 0);
-  signal imm32 : signed(31 downto 0);
-begin
-  dut : genImm32 port map(
+  END COMPONENT;
+  SIGNAL instr : std_logic_vector(31 DOWNTO 0);
+  SIGNAL imm32 : signed(31 DOWNTO 0);
+BEGIN
+  dut : genImm32 PORT MAP(
     instr => instr,
     imm32 => imm32);
-  process
-  begin
+  PROCESS
+  BEGIN
     -- R-type
     instr <= X"000002b3";
-    wait for 10 ps;
-    assert (imm32 = X"00000000") report "Erro formato R-type" severity error;
+    WAIT FOR 10 ps;
+    ASSERT (imm32 = X"00000000") REPORT "Erro formato R-type" SEVERITY error;
     -- I-type0
     instr <= X"01002283";
-    wait for 10 ps;
-    assert (imm32 = X"00000010") report "Erro formato I-type0" severity error;
+    WAIT FOR 10 ps;
+    ASSERT (imm32 = X"00000010") REPORT "Erro formato I-type0" SEVERITY error;
     -- I-type1
     instr <= X"f9c00313";
-    wait for 10 ps;
-    assert (imm32 = X"FFFFFF9C") report "Erro formato I-type1 1" severity error;
+    WAIT FOR 10 ps;
+    ASSERT (imm32 = X"FFFFFF9C") REPORT "Erro formato I-type1 1" SEVERITY error;
     instr <= x"fff2c293";
-    wait for 10 ps;
-    assert (imm32 = X"FFFFFFFF") report "Erro formato I-type1 2" severity error;
+    WAIT FOR 10 ps;
+    ASSERT (imm32 = X"FFFFFFFF") REPORT "Erro formato I-type1 2" SEVERITY error;
     instr <= x"16200313";
-    wait for 10 ps;
-    assert (imm32 = X"00000162") report "Erro formato I-type1 3" severity error;
+    WAIT FOR 10 ps;
+    ASSERT (imm32 = X"00000162") REPORT "Erro formato I-type1 3" SEVERITY error;
     -- I-type2
     instr <= x"01800067";
-    wait for 10 ps;
-    assert (imm32 = X"00000018") report "Erro formato I-type2" severity error;
+    WAIT FOR 10 ps;
+    ASSERT (imm32 = X"00000018") REPORT "Erro formato I-type2" SEVERITY error;
     -- S-type
     instr <= x"02542e23";
-    wait for 10 ps;
-    assert (imm32 = X"0000003C") report "Erro formato S-type" severity error;
+    WAIT FOR 10 ps;
+    ASSERT (imm32 = X"0000003C") REPORT "Erro formato S-type" SEVERITY error;
     -- SB-type
     instr <= x"fe5290e3";
-    wait for 10 ps;
-    assert (imm32 = X"FFFFFFE0") report "Erro formato SB-type" severity error;
+    WAIT FOR 10 ps;
+    ASSERT (imm32 = X"FFFFFFE0") REPORT "Erro formato SB-type" SEVERITY error;
     -- U-type
     instr <= x"00002437";
-    wait for 10 ps;
-    assert (imm32 = X"00002000") report "Erro formato U-type" severity error;
+    WAIT FOR 10 ps;
+    ASSERT (imm32 = X"00002000") REPORT "Erro formato U-type" SEVERITY error;
     -- UJ-type
     instr <= x"00c000ef";
-    wait for 10 ps;
-    assert (imm32 = X"0000000C") report "Erro formato UJ-type" severity error;
+    WAIT FOR 10 ps;
+    ASSERT (imm32 = X"0000000C") REPORT "Erro formato UJ-type" SEVERITY error;
     -- End
-    report "Final dos testes";
-    wait;
-  end process;
-end genImm32Testbench;
+    REPORT "Final dos testes";
+    WAIT;
+  END PROCESS;
+END genImm32Testbench;

@@ -90,8 +90,9 @@ ARCHITECTURE arch OF riscv IS
   SIGNAL ulaInput2 : std_logic_vector(31 DOWNTO 0);
   SIGNAL aluResult : std_logic_vector(31 DOWNTO 0);
   SIGNAL zero : std_logic;
-  signal ramAddress : std_logic_vector(7 DOWNTO 0);
+  SIGNAL ramAddress : std_logic_vector(7 DOWNTO 0);
   SIGNAL mem_data : std_logic_vector(32 - 1 DOWNTO 0);
+  SIGNAL next_pc : std_logic_vector(7 DOWNTO 0);
 BEGIN
   instruction_mem : rom_rv PORT MAP(
     address => pc,
@@ -158,9 +159,13 @@ BEGIN
     aluResult WHEN mem2reg = '0'
     ELSE mem_data WHEN mem2reg = '1';
 
+  next_pc <=
+    std_logic_vector(signed(imm32) + signed(pc)) WHEN branch = '1' AND zero = '1'
+    ELSE std_logic_vector(signed(pc)) + 4;
+
   change_pc : PROCESS (clock) BEGIN
     IF clock = '1' THEN
-      pc <= std_logic_vector(signed(pc) + 4);
+      pc <= next_pc;
     END IF;
   END PROCESS;
 END ARCHITECTURE;
